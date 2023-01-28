@@ -1,0 +1,17 @@
+---
+project_name: gpr25_exp1_liver_day30
+# it can even be a CSV file like the one in a Cell Ranger aggregation
+input_expression: "/mnt/bioadhoc-temp/Groups/vd-vijay/fcastaneda/rnaseq-sc-standar/gpr25/exp1_day30/raw/cellranger/aggr/gpr25_day30"
+# A table of the metadata per library, or the whole metadata ready
+# it can be multiple file
+metadata: ["/mnt/bioadhoc-temp/Groups/vd-vijay/fcastaneda/rnaseq-sc-standar/gpr25/exp1_day30/info/metadata_library.csv", "/mnt/bioadhoc-temp/Groups/vd-vijay/fcastaneda/rnaseq-sc-standar/gpr25/exp1_day30/results/ab_capture/gpr25_exp1_day30_100th/gpr25_day30.rds"]
+# if you don't add "/" at the end, it will append 'project_name'
+output_dir: "/mnt/bioadhoc-temp/Groups/vd-vijay/fcastaneda/rnaseq-sc-standar/gpr25/exp1_day30/results/qcontrol"
+# A file will sufice; columns must be metrics names in the metadata
+filtering:
+  #file: "./data/file.csv"
+  nFeature_RNA: [300, 5000, 1]
+  nCount_RNA: [200, 30000, 1]
+  percent.mt: [0, 10, 1]
+  expr: "orig.HT_ID.global %in% c('Singlet', NA, 'Negative', 'Doublet') & orig.extra_meta_donor_e == 'liver'"
+...

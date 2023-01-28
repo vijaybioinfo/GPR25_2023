@@ -1,0 +1,35 @@
+project: groups_differences_lung08_exp3_2
+method: mastlog2cpm
+metadata: /mnt/bioadhoc-temp/Groups/vd-vijay/fcastaneda/rnaseq-sc-standar/gpr25/lung08/results/clustering/gpr25_lung_08_xdoublets_clean1_clusters_noCD8n_cellcycleREGRESSION/.object_meta.data_seurat_mean0.01_pct25_pc20.rds
+expression_data: /mnt/bioadhoc-temp/Groups/vd-vijay/fcastaneda/rnaseq-sc-standar/gpr25/lung08/results/clustering/gpr25_lung_08_xdoublets_clean1_clusters_noCD8n_cellcycleREGRESSION/.object_stem_seurat_mean0.01_pct25.rds
+output_dir: /mnt/bioadhoc-temp/Groups/vd-vijay/fcastaneda/rnaseq-sc-standar/gpr25/lung08/results/dgea/
+comparisons:
+  KOvsWT:
+    context: KOvsWT
+    test_column: orig.lib
+    contrast:
+    - 'JuPa08_Mo_KO_CD8_1H'
+    - 'JuPa08_Mo_WT_CD8_1H'
+  0vs1:
+    context: 0v1
+    test_column: RNA_snn_res.0.4
+    contrast:
+    - '1'
+    - '0'
+covariates: none
+down_sample: no
+padj_threshold: 0.05
+fc_threshold: 0.25
+ctrans: log2cpm
+#colours: ./data/colours_df.csv
+job:
+  template: https://raw.githubusercontent.com/vijaybioinfo/cellranger_wrappeR/main/routine_template.sh
+  main:
+    walltime: '07:00:00'
+    mem: 80gb
+    ppn: 1
+    nodes: 1
+  depend: none
+  submit: yes
+exec: /mnt/BioApps/R/4.0.1/bin/Rscript
+script: /home/fcastaneda/bin/dgea/R/dgea.R

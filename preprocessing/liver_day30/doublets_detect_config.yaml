@@ -1,0 +1,14 @@
+---
+project_name: gpr25_exp1_day30
+input_matrix: "/mnt/bioadhoc-temp/Groups/vd-vijay/fcastaneda/rnaseq-sc-standar/gpr25/exp1_day30/raw/cellranger/aggr/gpr25_day30/outs/aggregation.csv"
+metadata: "/mnt/bioadhoc-temp/Groups/vd-vijay/fcastaneda/rnaseq-sc-standar/gpr25/exp1_day30/results/qcontrol/gpr25_exp1_liver_day30/metadata_prefilter.rds"
+output_dir: "/mnt/bioadhoc-temp/Groups/vd-vijay/fcastaneda/rnaseq-sc-standar/gpr25/exp1_day30/results/doublets_det"
+filters:
+  exclude: "none"
+  score: 0.3
+  doublet_rate: 0.06
+vars:
+  library: origlib
+  class: orig.HT_ID.global
+  dims: umap
+...

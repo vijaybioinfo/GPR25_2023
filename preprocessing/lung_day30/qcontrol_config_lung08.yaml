@@ -1,0 +1,17 @@
+---
+project_name: gpr25_lung08
+# it can even be a CSV file like the one in a Cell Ranger aggregation
+input_expression: "/home/fcastaneda/fcastaneda/rnaseq-sc-standar/gpr25/lung08/raw/cellranger/aggr/gpr25_all"
+# A table of the metadata per library, or the whole metadata ready
+# it can be multiple file
+metadata: ["/mnt/BioAdHoc/Groups/vd-vijay/fcastaneda/rnaseq-sc-standar/gpr25/lung08/info/metadata_library.csv"]
+# if you don't add "/" at the end, it will append 'project_name'
+output_dir: "/home/fcastaneda/fcastaneda/rnaseq-sc-standar/gpr25/lung08/results"
+# A file will sufice; columns must be metrics names in the metadata
+filtering:
+  #file: "./data/file.csv"
+  nFeature_RNA: [300, 3000, 1]
+  nCount_RNA: [200, 20000, 1]
+  percent.mt: [0, 7, 1]
+  expr: "Data %in% c('GPR25_LUNG08')"
+...

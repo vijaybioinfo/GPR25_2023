@@ -1,0 +1,35 @@
+project: WTvsKO_liver_day30
+method: mastlog2cpm
+metadata: /home/fcastaneda/fcastaneda-temp/rnaseq-sc-standar/gpr25/exp1_day30/results/clustering/gpr25_liver_day30_xdoublets_CD8n_cellcycle/.object_meta.data_seurat_mean0.01_pct25_pc20.rds
+expression_data: /home/fcastaneda/fcastaneda-temp/rnaseq-sc-standar/gpr25/exp1_day30/results/clustering/gpr25_liver_day30_xdoublets_CD8n_cellcycle/.object_stem_seurat_mean0.01_pct25.rds
+output_dir: /home/fcastaneda/fcastaneda-temp/rnaseq-sc-standar/gpr25/exp1_day30/results/dgea
+comparisons:
+  KOvsWT:
+    context: KOvsWT
+    test_column: origlib
+    contrast:
+    - 'JuPa03_Mo_WT_CD8_3H'
+    - 'JuPa03_Mo_KO_CD8_3H'
+  WTvsKO:
+    context: WTvsKO
+    test_column: origlib
+    contrast:
+    - 'JuPa03_Mo_KO_CD8_3H'
+    - 'JuPa03_Mo_WT_CD8_3H'
+covariates: none
+down_sample: no
+padj_threshold: 0.05
+fc_threshold: 0.25
+ctrans: log2cpm
+#colours: ./data/colours_df.csv
+job:
+  template: https://raw.githubusercontent.com/vijaybioinfo/cellranger_wrappeR/main/routine_template.sh
+  main:
+    walltime: '07:00:00'
+    mem: 80gb
+    ppn: 1
+    nodes: 1
+  depend: none
+  submit: yes
+exec: /mnt/BioApps/R/4.0.1/bin/Rscript
+script: /home/fcastaneda/bin/dgea/R/dgea_mouse_without_mitand_other_genes.R
