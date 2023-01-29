@@ -1,0 +1,14 @@
+---
+project_name: gpr25_lung08
+input_matrix: "/home/fcastaneda/fcastaneda/rnaseq-sc-standar/gpr25/lung08/raw/cellranger/aggr/gpr25_all/outs/aggregation.csv"
+metadata: "/home/fcastaneda/fcastaneda/rnaseq-sc-standar/gpr25/lung08/results/qcontrol/gpr25_lung08/metadata_prefilter.rds"
+output_dir: "/home/fcastaneda/fcastaneda/rnaseq-sc-standar/gpr25/lung08/results/doublets_det"
+filters:
+  exclude: "none"
+  score: 0.3
+  doublet_rate: 0.06
+vars:
+  library: origlib
+  # class: lib
+  dims: umap
+...
