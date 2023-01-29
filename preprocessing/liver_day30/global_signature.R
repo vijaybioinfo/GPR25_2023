@@ -26,8 +26,7 @@ if(requireNamespace("crayon", quietly = TRUE)){
     # gcolours = "/home/ciro/pbtumor/info/colours.csv",
     # gpr25_exp1 = "/mnt/beegfs/fcastaneda/gpr25_liver_xdoublets_clean1_clustersCD8n_cellcycleREGRESSION_object_lock_mean0.01_pct25_pc20.rds",
     gpr25_exp3 = "/mnt/beegfs/fcastaneda/gpr25_lung_08_xdoublets_clean1_clusters_noCD8n_cellcycleREGRESSION_5_object_lock_mean0.01_pct25_pc20.rds",
-    gpr25_exp1_day30 = "/mnt/beegfs/fcastaneda/DAY30_gpr25_liver_xdoublets_clean1_clustersCD8n_cellcycleREGRESSION_object_lock_mean0.01_pct25_pc20.rds",
-    gpr25_metas =  "/mnt/beegfs/fcastaneda/gpr25_metastasis_xdoublets_nCD8_cellcycle_diff1_5_8_9_clean1_object_lock_mean0.01_pct15_pc15.rds"
+    gpr25_exp1_day30 = "/mnt/beegfs/fcastaneda/DAY30_gpr25_liver_xdoublets_clean1_clustersCD8n_cellcycleREGRESSION_object_lock_mean0.01_pct25_pc20.rds"
   )
   if(!exists("include")) include = names(global_objects_f)
 
