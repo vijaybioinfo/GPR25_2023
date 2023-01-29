@@ -1,13 +1,24 @@
 
-# source("/mnt/bioadhoc-temp/Groups/vd-vijay/fcastaneda/rnaseq-sc-standar/gpr25/exp1/scripts/figures/object_lock_signature.R")
+#!/usr/bin/R
+
+######################
+# Figures compendium #
+######################
+
+# ---
+# Author: Francisco Emmanuel Castaneda-Castro
+# Date: 2023-01-29
+# ---
+
+### ================== Figures Lung and Liver day 30 ================== ###
+
+# Done after locking the clustering objectss (CD4 and CD8)
+# lung = pct25_pc20_0.4
+
+
 # source("/mnt/bioadhoc-temp/Groups/vd-vijay/fcastaneda/rnaseq-sc-standar/gpr25/lung08/scripts/figures/object_lock_signature.R")
-# source("/mnt/bioadhoc-temp/Groups/vd-vijay/fcastaneda/rnaseq-sc-standar/gpr25/metastasis/scripts/figures/object_lock_signature.R")
- # source("/mnt/bioadhoc-temp/Groups/vd-vijay/fcastaneda/rnaseq-sc-standar/gpr25/exp1_day30/scripts/figures/object_lock_signature.R")
+# source("/mnt/bioadhoc-temp/Groups/vd-vijay/fcastaneda/rnaseq-sc-standar/gpr25/exp1_day30/scripts/figures/object_lock_signature.R")
 
-
-#### Steps to reinitiate conda that Emmanuel did:
-# conda clean -a
-# export PS1='[$(whoami):$(pwd)]$ '
 
 source("/mnt/bioadhoc-temp/Groups/vd-vijay/fcastaneda/rnaseq-sc-standar/gpr25/exp1/scripts/figures/global_signature.R") # change to directory /home/fcastaneda/fcastaneda-temp/rnaseq-sc-standar/gpr25/exp1_day30/
 source('/mnt/BioHome/ciro/scripts/functions/handy_functions.R')
@@ -27,9 +38,7 @@ for(i in resources){ source(i) }
 { cat(redb("### Secondary global variables ### %%%%%%%%%%%%%%%%%%%%%%%%%%%%\n"))
     # As you progress they appear in many tasks and so become more or less global
     source("/home/ciro/scripts/handy_functions/R/stats_summary_table.R")
-    # gpr25_exp1_day30@meta.data = joindf(gpr25_exp1_day30@meta.data,
-    #   as.data.frame(gpr25_exp1_day30@reductions$umap@cell.embeddings))
-
+ 
     gpr25_liver_day30@meta.data = joindf(gpr25_liver_day30@meta.data,
       as.data.frame(gpr25_liver_day30@reductions$umap@cell.embeddings))
 
@@ -44,18 +53,15 @@ for(i in resources){ source(i) }
   dir.create("liver_day30")
   setwd("liver_day30")
 
-#### LIVER DAY30 Corrected
+#### LIVER DAY30 
   setwd("/mnt/bioadhoc-temp/Groups/vd-vijay/fcastaneda/rnaseq-sc-standar/gpr25/final_figures")
   dir.create("liver_day30_corrected")
   setwd("liver_day30_corrected")
 
-  { cat(redb("### Blanks volcano ### %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%\n"))
+  { cat(redb("### Figure 4a. Blanks volcano ### %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%\n"))
 
-    #I ran the documented line and change the name of the output file
     dir.create("volcano")
     results<- read.csv("/home/fcastaneda/fcastaneda-temp/rnaseq-sc-standar/gpr25/exp1_day30/results/dgea/WTvsKO_liver_day30/WTvsKO/JuPa03_Mo_KO_CD8_3HvsJuPa03_Mo_WT_CD8_3H/mastlog2cpm_results.csv")
-
-    #results<-read.csv("/home/fcastaneda/vd-vijay/cramirez/asthma_biopsy/results/dgea/p5pe_clean1/epithelial_covsex/NIHWvsNIHMA/mastlog2cpm_results.csv")
 
       group1 = "JuPa03_Mo_KO_CD8_3H"
       group2 = "JuPa03_Mo_WT_CD8_3H"
@@ -214,8 +220,8 @@ for(i in resources){ source(i) }
     write.csv(aver, "./volcano/mean_and_percetage_per_gene.csv")
   }
 
-  { cat (redb("### violins ### %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%\n"))
-      dir.create("violins") #Eliminate the ones that are not gonna be usefull
+  { cat (redb("### Figure 4b. and Extended Data Figure 4a violins ### %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%\n"))
+      dir.create("violins") 
 
       gpr25_liver_day30$condition<-ifelse(grepl("KO",gpr25_liver_day30$origlib), "KO", "WT")
       table(gpr25_liver_day30$origlib, gpr25_liver_day30$condition)
@@ -245,15 +251,16 @@ for(i in resources){ source(i) }
   saveRDS(gpr25_liver_day30@meta.data, "metadata_gpr25_liver_day30.rds")
   ######
 
+  ###### Lung Day 30
   setwd("/mnt/bioadhoc-temp/Groups/vd-vijay/fcastaneda/rnaseq-sc-standar/gpr25/final_figures")
   dir.create("lung_day30")
   setwd("lung_day30")
 
-  { cat(redb("### UMAPS and pie dim_reduction ### %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%\n"))
+  { cat(redb("### Figure 5d UMAP WT and KO and pie  ### %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%\n"))
     dir.create("dim_reduction_features")
 
     mycols<-c('0'="#FF0000", '1'="#356BB4")
-
+    #downsampling KO cells to have an equal number of cells between KO and WT, just for figure purposes
     WT_cells <-  which(gpr25_exp3$orig.lib == 'JuPa08_Mo_WT_CD8_1H')
     KO_cells <- which(gpr25_exp3$orig.lib == 'JuPa08_Mo_KO_CD8_1H')
     downsampled_KO_cells <- sample(KO_cells, 706)
@@ -313,7 +320,7 @@ for(i in resources){ source(i) }
 
   }
 
-  { cat(redb("### Dotplots ### %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%\n"))
+  { cat(redb("### Figure 5e. Dotplot ### %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%\n"))
     dir.create("dotplots")
     source("/mnt/bioadhoc-temp/Groups/vd-vijay/fcastaneda/rnaseq-sc-standar/gpr25/exp1/scripts/source.R")
     source("/mnt/bioadhoc-temp/Groups/vd-vijay/fcastaneda/rnaseq-sc-standar/gpr25/lung08/scripts/plots_dotplot.R")
@@ -337,24 +344,9 @@ for(i in resources){ source(i) }
 
     pp_curtains = fig_plot_curtain(fconfigs[1], verbose = 2)
 
-    table(gpr25_exp3$RNA_snn_res.0.4_order_paper, ifelse(gpr25_exp3@assays$RNA@data["Xcl1", ]>0, "pos", "neg"))
-
-
-      # tvar<-c("Tcf7", "Il7r", "Ccr7", "Cd69", "Xcl1", "Gpr183", "Zeb2", "S1pr1", "S1pr5", "Gzma", "Gzmb", "Prf1", "Cx3cr1", "Fasl", "Klrg1")
-      #
-      # tmp <- add_gene_tag(gpr25_exp3, gpr25_exp3@meta.data, as.matrix(gpr25_exp3@assays$RNA@data[tvar, ]), thresh = 0.01)
-      #
-      # gpr25_exp3@assays$RNA@data["Ccr7", ]
-
-    #c("Tcf7", "Il7r", "Cxcr3", "Cd69", "Ly6e", "Gpr183", "Zeb2", "S1pr1", "S1pr5", "Gzma", "Gzmb", "Prf1", "Cx3cr1", "Fasl", "Klrg1")
-
-    # c("Tcf7", "Il7r", "Ccr7", "Cd69", "Xcl1", "Gpr183", "Zeb2", "S1pr1", "S1pr5", "Gzma", "Gzmb", "Prf1", "Cx3cr1", "Fasl", "Klrg1")
-
-    # rev(c("Zeb2", "Cx3cr1", "S1pr5", "Klrg1", "Gzma", "Prf1", "Lgals1", "Itga4", "Itgb1", "Itgal", "Gzmb", "S1pr1", "Cd69", "Ifi203", "Il7r", "Ctla2a", "Tcf7", "Ly6e", "Ly6a")),
-
     pp_curtains = fig_plot_curtain(fconfigs[1], verbose = 2)
 
-  { cat(red("### Markers: dim. red. ### %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%\n"))
+  { cat(red("### Figure 5f and Extended Data Figure 5e Markers: UMAPs expression genes ### %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%\n"))
       dir.create("dim_reduction_features")
       fconfigs = list(
         list(result_id = "dim_reduction_features/vPURPLE_sc_gpr25_exp3_", sufix = "/",
