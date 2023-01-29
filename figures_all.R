@@ -12,7 +12,7 @@
 
 ### ================== Figures Lung and Liver day 30 ================== ###
 
-# Done after locking the clustering objectss (CD4 and CD8)
+# Locking the clustering objects (lung)
 # lung = pct25_pc20_0.4
 
 
