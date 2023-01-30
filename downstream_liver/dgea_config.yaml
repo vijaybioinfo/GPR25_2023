@@ -32,4 +32,4 @@ job:
   depend: none
   submit: yes
 exec: /mnt/BioApps/R/4.0.1/bin/Rscript
-script: /home/fcastaneda/bin/dgea/R/dgea_mouse_without_mitand_other_genes.R
+script: /home/fcastaneda/bin/dgea/R/dgea_mouse_without_mitand_other_genes.R #Modification only to eliminate mitochondrial genes on the analysis
