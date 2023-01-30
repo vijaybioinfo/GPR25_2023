@@ -46,7 +46,7 @@ Figures
 Downstream Analysis
 ------------
 * DGEA - You can follow [our in-house pipeline](https://github.com/vijaybioinfo/dgea)
-> Relevant scripts all located in: ./downstream_analysis
+> Relevant script all located in: ./downstream_liver
 
 Citation
 --------------
