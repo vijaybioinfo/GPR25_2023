@@ -324,7 +324,11 @@ for(i in resources){ source(i) }
     dir.create("dotplots")
     source("/mnt/bioadhoc-temp/Groups/vd-vijay/fcastaneda/rnaseq-sc-standar/gpr25/exp1/scripts/source.R")
     source("/mnt/bioadhoc-temp/Groups/vd-vijay/fcastaneda/rnaseq-sc-standar/gpr25/lung08/scripts/plots_dotplot.R")
-
+    
+   ###Attention here: Cluster order changed, cluster 0 (KO) now is cluster 1; and cluster 1 (WT) now is cluster 0. Due figures purpuses, so:
+   # Previous: 0--> KO; 1 --> WT
+   # Now: 0--> WT; 1 --> KO
+   #NOTE: In figure 5d change the legend. Please be carefull in downstream analysis
     gpr25_exp3$RNA_snn_res.0.4_order_paper<-ifelse(gpr25_exp3$RNA_snn_res.0.4 == "0", "1", "0")
 
     fconfigs = list(
