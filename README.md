@@ -17,7 +17,7 @@ This project was done using the following modules/programs:
 * [R](https://cran.r-project.org/) (v4.0.1)
 * [Cell Ranger](https://support.10xgenomics.com/single-cell-gene-expression/software/pipelines/latest/what-is-cell-ranger) (v3.1.0)
 * [Scrublet](https://github.com/swolock/scrublet/blob/master/README.md) (v0.2.3)
-* [Seurat](https://satijalab.org/seurat) (v3.1.5)
+* [Seurat](https://satijalab.org/seurat) (v4.1.1)
 
 
 Raw data
