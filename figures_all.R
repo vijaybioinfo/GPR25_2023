@@ -259,7 +259,16 @@ for(i in resources){ source(i) }
   { cat(redb("### Figure 5d UMAP WT and KO and pie  ### %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%\n"))
     dir.create("dim_reduction_features")
 
-    mycols<-c('0'="#FF0000", '1'="#356BB4")
+    mycols<-c('0'="#07b012", '1'="#bf8506")
+   
+   ###Attention here: Cluster order changed, cluster 0 (KO) now is cluster 1; and cluster 1 (WT) now is cluster 0. Due figures purposes, so:
+   # Previous: 0--> KO; 1 --> WT
+   # Now: 0--> WT; 1 --> KO
+   #NOTE: In figure 5d change the original legend. Please be carefull in downstream analysis !!! 
+   
+   gpr25_exp3$RNA_snn_res.0.4_order_paper<-ifelse(gpr25_exp3$RNA_snn_res.0.4 == "0", "1", "0")
+   
+
     #downsampling KO cells to have an equal number of cells between KO and WT, just for figure purposes
     WT_cells <-  which(gpr25_exp3$orig.lib == 'JuPa08_Mo_WT_CD8_1H')
     KO_cells <- which(gpr25_exp3$orig.lib == 'JuPa08_Mo_KO_CD8_1H')
@@ -280,43 +289,47 @@ for(i in resources){ source(i) }
       )
     )
 
-    pp_clones = fig_plot_base(
-      fconfigs[2], return_plot = TRUE, verbose = TRUE,
-      theme_extra = function(x){
-        x + geom_point(size=3, alpha = 0.8, stroke = 0.2) +  theme(
-        plot.margin = unit(c(3, 3, 3, 8), "cm"))
-      }
-    )
-
-    ##pie
-
-      KO <- data.frame(
-        group = c(1, 0),
-        value = c(0.62, 0.38)
+      pp_clones = fig_plot_base(
+        fconfigs[2], return_plot = TRUE, verbose = TRUE,
+        theme_extra = function(x){
+          x + geom_point(size=3, alpha = 0.8, stroke = 0.2) +  theme(
+          plot.margin = unit(c(3, 3, 3, 8), "cm"))
+        }
       )
 
-      WT <- data.frame(
-        group = c(1, 0),
-        value = c(0.38, 0.62)
-      )
+     ##pie charts
+   
+     mycols<-c('0'="#07b012", '1'="#bf8506")
 
-    pie_wt<-
-    ggplot(WT, aes(x="", y=value, fill=as.character(group)))+
-    geom_bar(width = 1, stat = "identity") +
-    coord_polar("y", start=0) + scale_fill_manual(values=rev(c("#FF0000", "#356BB4")))
+     #Table with final percentages
+     percentages<-read.csv("/home/fcastaneda/fcastaneda-temp/rnaseq-sc-standar/gpr25/lung08/results/clustering/gpr25_lung_08_xdoublets_clean1_clusters_noCD8n_cellcycleREGRESSION_5/seurat_mean0.01_pct25_pc20_res0.4/proportions_lib.csv")
 
-    pie_ko<-ggplot(KO, aes(x="", y=value, fill=as.character(group)))+
-    geom_bar(width = 1, stat = "identity") +
-    coord_polar("y", start=0) + scale_fill_manual(values=rev(c("#FF0000", "#356BB4")))
+     sums2<-table(gpr25_exp3$orig.lib, gpr25_exp3$RNA_snn_res.0.4_order_paper)/rowSums(table(gpr25_exp3$orig.lib, gpr25_exp3$RNA_snn_res.0.4_order_paper))
 
-    pdf("./dim_reduction_features/pie_WT_lung_day30.pdf")
-    print(pie_wt)
-    dev.off()
+      library(reshape2)
+      KO<-melt(round(sums2, 2)["JuPa08_Mo_KO_CD8_1H",])
+      KO$groups<-rownames(KO)
+      KO$value<-as.numeric(KO$value)
+      WT<-melt(round(sums2, 2)["JuPa08_Mo_WT_CD8_1H",])
+      WT$groups<-rownames(WT)
+      WT$value<-as.numeric(WT$value)
 
-    pdf("./dim_reduction_features/pie_ko_lung_day30.pdf")
-    print(pie_ko)
-    dev.off()
+      pie_wt<-
+      ggplot(WT, aes(x="", y=value, fill=as.character(groups)))+
+      geom_bar(width = 1, stat = "identity") +
+      coord_polar("y", start=0) + scale_fill_manual(values=rev(c('0'="#07b012", '1'="#bf8506"))) + ggtitle("Pie WT")
 
+      pie_ko<-ggplot(KO, aes(x="", y=value, fill=as.character(groups)))+
+      geom_bar(width = 1, stat = "identity") +
+      coord_polar("y", start=0) + scale_fill_manual(values=rev(c('0'="#07b012", '1'="#bf8506"))) + ggtitle("Pie KO")
+
+      pdf("./dim_reduction_features/pie_WT_lung_day30_30-Jan2023_corrected.pdf")
+      print(pie_wt)
+      dev.off()
+
+      pdf("./dim_reduction_features/pie_ko_lung_day30_30-Jan2023_corrected.pdf")
+      print(pie_ko)
+      dev.off()
 
   }
 
@@ -325,11 +338,12 @@ for(i in resources){ source(i) }
     source("/mnt/bioadhoc-temp/Groups/vd-vijay/fcastaneda/rnaseq-sc-standar/gpr25/exp1/scripts/source.R")
     source("/mnt/bioadhoc-temp/Groups/vd-vijay/fcastaneda/rnaseq-sc-standar/gpr25/lung08/scripts/plots_dotplot.R")
     
-   ###Attention here: Cluster order changed, cluster 0 (KO) now is cluster 1; and cluster 1 (WT) now is cluster 0. Due figures purpuses, so:
+   ###Attention here: Cluster order changed, cluster 0 (KO) now is cluster 1; and cluster 1 (WT) now is cluster 0. Due figures purposes, so:
    # Previous: 0--> KO; 1 --> WT
    # Now: 0--> WT; 1 --> KO
-   #NOTE: In figure 5d change the legend. Please be carefull in downstream analysis
-    gpr25_exp3$RNA_snn_res.0.4_order_paper<-ifelse(gpr25_exp3$RNA_snn_res.0.4 == "0", "1", "0")
+   #NOTE: In figure 5e change the original legend. Please be carefull in downstream analysis !!
+   
+    #gpr25_exp3$RNA_snn_res.0.4_order_paper<-ifelse(gpr25_exp3$RNA_snn_res.0.4 == "0", "1", "0")
 
     fconfigs = list(
       list(result_id = "./dotplots/", sufix = "NewVersion_lung_gpr25_exp3_RNA_snn_res.0.4_16Jan2023",
